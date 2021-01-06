@@ -3,6 +3,11 @@ use std::io::BufRead;
 use std::{io, env};
 use std::path::Path;
 
+const SIGN_BEGIN:&str = "<!-- BEGIN LGBT-CN SIGNATURE -->";
+const SIGN_END:&str = "<!-- END LGBT-CN SIGNATURE -->";
+const COUNT_BEGIN:&str = "<!-- BEGIN LGBT-CN COUNT -->";
+const COUNT_END:&str = "<!-- END LGBT-CN COUNT -->";
+
 fn main() {
     let args: Vec<String> = env::args().collect();
     if args.len() > 2 {
@@ -25,8 +30,8 @@ fn get_sign_number(data: io::Lines<io::BufReader<File>>) -> i16 {
     let mut counter: i16 = -1;
     for line in data {
         match &line.unwrap().trim()[..] {
-            "<!-- BEGIN LGBT-CN SIGNATURE -->" => counter = 0,
-            "<!-- END LGBT-CN SIGNATURE -->" => break,
+            SIGN_BEGIN => counter = 0,
+            SIGN_END => break,
             "" => continue,
             _ => {
                 if counter < 0 {
