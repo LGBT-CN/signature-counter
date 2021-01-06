@@ -1,35 +1,33 @@
-use std::fs::File;
-use std::io::BufRead;
-use std::{io, env};
-use std::path::Path;
+use std::{env, fs};
 
-const SIGN_BEGIN:&str = "<!-- BEGIN LGBT-CN SIGNATURE -->";
-const SIGN_END:&str = "<!-- END LGBT-CN SIGNATURE -->";
-const COUNT_BEGIN:&str = "<!-- BEGIN LGBT-CN COUNT -->";
-const COUNT_END:&str = "<!-- END LGBT-CN COUNT -->";
+const SIGN_BEGIN: &str = "<!-- BEGIN LGBT-CN SIGNATURE -->";
+const SIGN_END: &str = "<!-- END LGBT-CN SIGNATURE -->";
+const COUNT_BEGIN: &str = "<!-- BEGIN LGBT-CN COUNT -->";
+const COUNT_END: &str = "<!-- END LGBT-CN COUNT -->";
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    if args.len() > 2 {
+    let content: String;
+    if args.len() != 2 {
         eprintln!("[Error] Wrong number of arguments. Request 1, provided {}", args.len() - 1);
     }
-    let count: i16;
     let target = args[1].clone();
     if target.starts_with("http") {
         unimplemented!("TODO: URL DOWNLOAD");
-        count = 0;
     } else {
-        let content = file_read_lines(target).unwrap();
-        count = get_sign_number(content);
+        content = fs::read_to_string(&target).unwrap();
     }
 
+    let content_vec: Vec<&str> = content.split("\n").collect();
+    let count = get_sign_number(&content_vec);
+    // let syn = sync_sign_number(&target, content_vec, count);
     println!("Count: {}", count);
 }
 
-fn get_sign_number(data: io::Lines<io::BufReader<File>>) -> i16 {
+fn get_sign_number(data: &Vec<&str>) -> i16 {
     let mut counter: i16 = -1;
     for line in data {
-        match &line.unwrap().trim()[..] {
+        match line.trim() {
             SIGN_BEGIN => counter = 0,
             SIGN_END => break,
             "" => continue,
@@ -43,10 +41,4 @@ fn get_sign_number(data: io::Lines<io::BufReader<File>>) -> i16 {
         };
     };
     counter
-}
-
-fn file_read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
-    where P: AsRef<Path>, {
-    let file = File::open(filename)?;
-    Ok(io::BufReader::new(file).lines())
 }
