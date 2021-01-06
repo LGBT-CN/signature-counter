@@ -25,8 +25,8 @@ fn get_sign_number(data: io::Lines<io::BufReader<File>>) -> i16 {
     let mut counter: i16 = -1;
     for line in data {
         match &line.unwrap().trim()[..] {
-            "<!-- BEGIN LGBT-CN SIGNATURE-->" => counter = 0,
-            "<!-- END LGBT-CN SIGNATURE-->" => break,
+            "<!-- BEGIN LGBT-CN SIGNATURE -->" => counter = 0,
+            "<!-- END LGBT-CN SIGNATURE -->" => break,
             "" => continue,
             _ => {
                 if counter < 0 {
