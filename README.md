@@ -1,3 +1,5 @@
+<b><p style="font-size:30px">CODE INSIDE IS TOO 💩, DON'T TOUCH!!!</p></b>
+
 # Signature Counter
 
 [![LGBT-CN Badge](https://img.shields.io/badge/Support-LGBTQIA-FF0000?style=flat-square)](https://git.io/JfJiO)
