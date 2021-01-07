@@ -1,7 +1,6 @@
 use std::{env, fs};
 use std::fs::File;
 use std::io::Write;
-use std::process::exit;
 
 const SIGN_BEGIN: &str = "<!-- BEGIN LGBT-CN SIGNATURE -->";
 const SIGN_END: &str = "<!-- END LGBT-CN SIGNATURE -->";
