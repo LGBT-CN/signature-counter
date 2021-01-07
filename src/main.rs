@@ -1,6 +1,7 @@
 use std::{env, fs};
 use std::fs::File;
 use std::io::Write;
+use std::process::exit;
 
 const SIGN_BEGIN: &str = "<!-- BEGIN LGBT-CN SIGNATURE -->";
 const SIGN_END: &str = "<!-- END LGBT-CN SIGNATURE -->";
@@ -11,7 +12,7 @@ fn main() {
     let args: Vec<String> = env::args().collect();
     let content: String;
     if args.len() != 2 {
-        eprintln!("[Error] Wrong number of arguments. Request 1, provided {}", args.len() - 1);
+        panic!("[Error] Wrong number of arguments. Request 1, provided {}", (args.len() - 1));
     }
     let target = args[1].clone();
     if target.starts_with("http") {
