@@ -14,6 +14,7 @@ fn main() {
         panic!("[Error] Wrong number of arguments. Request 1, provided {}", (args.len() - 1));
     }
     let target = args[1].clone();
+
     if target.starts_with("http") {
         unimplemented!("TODO: URL DOWNLOAD");
     } else {
@@ -52,8 +53,9 @@ fn sync_sign_number(path: &str, data: Vec<&str>, count: i16) {
             }
         };
     }
-    // println!("{:}", v);
-    f.write_all(v.as_bytes()).unwrap();
+    // println!("{}", v);
+    // use trim to delete all useless "\n"
+    f.write_all(v.trim().as_bytes()).unwrap();
 }
 
 fn get_sign_number(data: &Vec<&str>) -> i16 {
