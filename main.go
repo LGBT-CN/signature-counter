@@ -29,16 +29,16 @@ func main() {
 
 }
 
-func Split(content string, beginToken string, endToken string) (string, string, string) {
+func Split(content string, beginToken string, endToken string) (header string, body string, footer string) {
 	begins := strings.SplitN(content, beginToken, 2)
-	token0 := strings.TrimSpace(begins[0])
+	header = strings.TrimSpace(begins[0])
 
 	content = begins[1]
 
 	ends := strings.SplitN(content, endToken, 2)
-	token1 := strings.TrimSpace(ends[0])
-	token2 := strings.TrimSpace(ends[1])
-	return token0, token1, token2
+	body = strings.TrimSpace(ends[0])
+	footer = strings.TrimSpace(ends[1])
+	return
 
 }
 

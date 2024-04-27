@@ -34,7 +34,7 @@ END`
 const TEST_FILE = "test.md"
 
 func TestMainFunc(t *testing.T) {
-	//defer os.Remove(TEST_FILE)
+	defer os.Remove(TEST_FILE)
 	iox.WriteAllText(TEST_FILE, README)
 	os.Args = []string{"main", TEST_FILE}
 	main()
